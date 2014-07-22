@@ -10,8 +10,9 @@
     </style>
 </head>
 <body>
-    <div id="mess">正在连接...</div>
-	<div id="mess2">正在连接...</div>
+    <div id="status">WS状态：正在连接</div>
+	<div id="action">本地动作：正在连接...</div>
+	<div id="sAction">服务端接收：正在连接...</div>
     <div class="kuang">
         <div class="value" id="value1">小明小明</div>
         <div class="value" id="value2">大胸大胸</div>
@@ -19,8 +20,9 @@
     </div>
 
     <script>
-        var mess = document.getElementById("mess");
-        var mess2 = document.getElementById("mess2");
+        var status = document.getElementById("status");
+        var action = document.getElementById("action");
+        var sAction = document.getElementById("sAction");
         if(window.WebSocket){
             var ws = new WebSocket('ws://test.com:8001');
 
@@ -36,15 +38,16 @@
             }
 
             ws.onmessage = function(e){
-                mess.innerHTML = "连接成功"
+                status.innerHTML = "连接成功;";
                 document.querySelector(".kuang").onclick = function(e){
                     var time = new Date();
-                    ws.send(time + "  game1点击了“" + e.target.innerHTML+"”");
-					
+                    ws.send(time + "  game1点击了“" + e.target.innerHTML+"”<br />");
                 }
-				mess2.innerHTML+=e.data
+				action.innerHTML+=e.data
             }
-        }
+        }else{
+			status.html+='浏览器不支持;';
+		}
     </script>
 </body>
 </html>
